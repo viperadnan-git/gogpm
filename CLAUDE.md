@@ -21,15 +21,14 @@ This is a CLI tool for uploading photos/videos to Google Photos using an unoffic
   - `api.go` - Google Photos API client. Handles authentication, upload tokens, file uploads, and commit operations via protobuf.
   - `upload.go` - Upload orchestration with worker pool for concurrent uploads. Emits events for progress tracking.
   - `configmanager.go` - YAML config file management using koanf. Stores credentials and settings.
-  - `app_interface.go` - Interface abstraction (`AppInterface`) that upload workers use to emit events.
-  - `cli_app.go` - CLI implementation of `AppInterface` that routes events to callbacks.
+  - `app.go` - GooglePhotosCLI struct that handles event emission and logging.
 - **generated/** - Protobuf-generated Go code for API request/response structures.
 
 ### Event-Based Progress System
 
 The upload system uses an event callback pattern:
 1. `UploadManager.Upload()` starts worker goroutines
-2. Workers emit events via `AppInterface.EmitEvent()`
+2. Workers emit events via `GooglePhotosCLI.EmitEvent()`
 3. `cli.go` receives events and prints progress to stdout
 
 Event types: `uploadStart`, `ThreadStatus`, `FileStatus`, `uploadStop`

@@ -229,7 +229,7 @@ func uploadAction(c *cli.Context) error {
 		case "uploadStart":
 			if start, ok := data.(src.UploadBatchStart); ok {
 				totalFiles = start.Total
-				logger.Info("upload batch started", "total_files", totalFiles)
+				logger.Info("upload batch started", "total", totalFiles)
 			}
 		case "ThreadStatus":
 			if status, ok := data.(src.ThreadStatus); ok {
@@ -266,12 +266,12 @@ func uploadAction(c *cli.Context) error {
 		}
 	}
 
-	cliApp := src.NewCLIApp(eventCallback, currentLogLevel)
-	uploadManager := src.NewUploadManager(cliApp)
+	app := src.NewGooglePhotosCLI(eventCallback, currentLogLevel)
+	uploadManager := src.NewUploadManager(app)
 
 	// Run upload in background
 	go func() {
-		uploadManager.Upload(cliApp, []string{filePath})
+		uploadManager.Upload(app, []string{filePath})
 	}()
 
 	// Wait for upload to complete

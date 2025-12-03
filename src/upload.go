@@ -19,10 +19,10 @@ type UploadManager struct {
 	wg      sync.WaitGroup
 	cancel  chan struct{}
 	running bool
-	app     AppInterface
+	app     *GooglePhotosCLI
 }
 
-func NewUploadManager(app AppInterface) *UploadManager {
+func NewUploadManager(app *GooglePhotosCLI) *UploadManager {
 	return &UploadManager{
 		app: app,
 	}
@@ -66,7 +66,7 @@ type ThreadStatus struct {
 	Message  string
 }
 
-func (m *UploadManager) Upload(app AppInterface, paths []string) {
+func (m *UploadManager) Upload(app *GooglePhotosCLI, paths []string) {
 	if m.running {
 		return
 	}
@@ -206,11 +206,6 @@ func scanDirectoryForFiles(path string, recursive bool) ([]string, error) {
 	return files, nil
 }
 
-// FilterGooglePhotosFiles returns a list of files that are supported by Google Photos (exported)
-func FilterGooglePhotosFiles(paths []string) ([]string, error) {
-	return filterGooglePhotosFiles(paths)
-}
-
 // filterGooglePhotosFiles returns a list of files that are supported by Google Photos
 func filterGooglePhotosFiles(paths []string) ([]string, error) {
 	var supportedFiles []string
@@ -250,11 +245,6 @@ func filterGooglePhotosFiles(paths []string) ([]string, error) {
 	}
 
 	return supportedFiles, nil
-}
-
-// UploadFile is an exported version for CLI use with callback
-func UploadFile(ctx context.Context, api *Api, filePath string, workerID int, callback ProgressCallback) UploadResult {
-	return uploadFileWithCallback(ctx, api, filePath, workerID, callback)
 }
 
 func uploadFileWithCallback(ctx context.Context, api *Api, filePath string, workerID int, callback ProgressCallback) UploadResult {
@@ -369,7 +359,7 @@ func uploadFileWithCallback(ctx context.Context, api *Api, filePath string, work
 	return UploadResult{MediaKey: mediaKey}
 }
 
-func startUploadWorker(workerID int, workChan <-chan string, results chan<- FileUploadResult, cancel <-chan struct{}, wg *sync.WaitGroup, app AppInterface) {
+func startUploadWorker(workerID int, workChan <-chan string, results chan<- FileUploadResult, cancel <-chan struct{}, wg *sync.WaitGroup, app *GooglePhotosCLI) {
 	defer wg.Done()
 
 	// Emit idle status initially

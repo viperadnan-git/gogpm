@@ -7,13 +7,13 @@ import (
 	"os"
 )
 
-// CLIApp implements AppInterface for CLI usage
-type CLIApp struct {
+// GooglePhotosCLI handles event emission and logging for the CLI
+type GooglePhotosCLI struct {
 	eventCallback func(event string, data any)
 	logger        *slog.Logger
 }
 
-func NewCLIApp(eventCallback func(event string, data any), logLevel slog.Level) *CLIApp {
+func NewGooglePhotosCLI(eventCallback func(event string, data any), logLevel slog.Level) *GooglePhotosCLI {
 	var logger *slog.Logger
 
 	if logLevel <= slog.LevelInfo {
@@ -32,30 +32,18 @@ func NewCLIApp(eventCallback func(event string, data any), logLevel slog.Level) 
 		SetHTTPClientLogger(nil) // nil will use default retryablehttp logger
 	}
 
-	return &CLIApp{
+	return &GooglePhotosCLI{
 		eventCallback: eventCallback,
 		logger:        logger,
 	}
 }
 
-func NewCLIAppWithLogger(eventCallback func(event string, data any), logFile *os.File) *CLIApp {
-	// Create a logger that writes to a file instead of stdout
-	logger := slog.New(slog.NewTextHandler(logFile, &slog.HandlerOptions{
-		Level: slog.LevelDebug,
-	}))
-
-	return &CLIApp{
-		eventCallback: eventCallback,
-		logger:        logger,
-	}
-}
-
-func (c *CLIApp) EmitEvent(event string, data any) {
+func (c *GooglePhotosCLI) EmitEvent(event string, data any) {
 	if c.eventCallback != nil {
 		c.eventCallback(event, data)
 	}
 }
 
-func (c *CLIApp) GetLogger() *slog.Logger {
+func (c *GooglePhotosCLI) GetLogger() *slog.Logger {
 	return c.logger
 }
