@@ -95,6 +95,7 @@ func Run() {
 		Usage:                  "Google Photos unofficial CLI client",
 		Version:                gogpm.Version,
 		UseShortOptionHandling: true,
+		EnableShellCompletion:  true,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:    "config",
