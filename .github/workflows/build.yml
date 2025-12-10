@@ -14,6 +14,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+    strategy:
+      matrix:
+        goarch: [amd64, arm64]
+        goos: [linux, darwin, windows]
 
     steps:
       - name: Checkout code
@@ -25,13 +29,13 @@ jobs:
           go-version-file: go.mod
 
       - name: Build
-        run: go build -o gpcli .
+        run: go build -o gogpm-${{ matrix.goos }}-${{ matrix.goarch }} .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: gpcli-linux-amd64
-          path: gpcli
+          name: gogpm-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: gogpm-${{ matrix.goos }}-${{ matrix.goarch }}
           retention-days: 90
 
   release:
