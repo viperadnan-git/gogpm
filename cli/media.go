@@ -45,13 +45,11 @@ func deleteAction(ctx context.Context, cmd *cli.Command) error {
 		if err := apiClient.RestoreFromTrash([]string{itemKey}); err != nil {
 			return fmt.Errorf("failed to restore from trash: %w", err)
 		}
-		logger.Info("restored from trash")
 	} else {
 		logger.Info("moving to trash", "item_key", itemKey)
 		if err := apiClient.MoveToTrash([]string{itemKey}); err != nil {
 			return fmt.Errorf("failed to move to trash: %w", err)
 		}
-		logger.Info("moved to trash")
 	}
 
 	return nil
@@ -99,12 +97,6 @@ func archiveAction(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("failed to set archived status: %w", err)
 	}
 
-	if isArchived {
-		logger.Info("archived")
-	} else {
-		logger.Info("unarchived")
-	}
-
 	return nil
 }
 
@@ -150,12 +142,6 @@ func favouriteAction(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("failed to set favourite status: %w", err)
 	}
 
-	if isFavourite {
-		logger.Info("added to favourites")
-	} else {
-		logger.Info("removed from favourites")
-	}
-
 	return nil
 }
 
@@ -195,8 +181,6 @@ func captionAction(ctx context.Context, cmd *cli.Command) error {
 	if err := apiClient.SetCaption(itemKey, caption); err != nil {
 		return fmt.Errorf("failed to set caption: %w", err)
 	}
-
-	logger.Info("caption set")
 
 	return nil
 }
