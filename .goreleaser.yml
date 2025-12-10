@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+version: 2
+
+builds:
+  - main: .
+    binary: gpcli
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X gpcli/gogpm.Version={{.Version}}
+
+archives:
+  - formats: [binary]
+    name_template: >-
+      {{ .ProjectName }}-{{ .Os }}-{{ .Arch }}{{ if eq .Os "windows" }}.exe{{ end }}
+
+checksum:
+  name_template: 'checksums.txt'
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - Merge pull request
+      - Merge branch
+
+release:
+  draft: false
+  prerelease: auto
+  footer: |
+    ## Downloads
+
+    | Platform | Architecture | File |
+    |----------|--------------|------|
+    | Linux | amd64 | gpcli-linux-amd64 |
+    | Linux | arm64 | gpcli-linux-arm64 |
+    | macOS | amd64 (Intel) | gpcli-darwin-amd64 |
+    | macOS | arm64 (Apple Silicon) | gpcli-darwin-arm64 |
+    | Windows | amd64 | gpcli-windows-amd64.exe |
+    | Windows | arm64 | gpcli-windows-arm64.exe |

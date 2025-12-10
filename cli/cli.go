@@ -257,6 +257,19 @@ func Run() {
 				ArgsUsage: "<media_key|dedup_key|file_path> <caption>",
 				Action:    captionAction,
 			},
+			{
+				Name:      "upgrade",
+				Usage:     "Upgrade gpcli to latest or specific version",
+				ArgsUsage: "[version]",
+				Flags: []cli.Flag{
+					&cli.BoolFlag{
+						Name:    "check",
+						Aliases: []string{"C"},
+						Usage:   "Only check for updates without installing",
+					},
+				},
+				Action: upgradeAction,
+			},
 		},
 	}
 
