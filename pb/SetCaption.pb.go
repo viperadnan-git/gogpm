@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v3.12.4
-// source: .proto/SetCaption.proto
+// source: SetCaption.proto
 
 package pb
 
@@ -24,14 +24,14 @@ const (
 type SetCaption struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Caption       string                 `protobuf:"bytes,2,opt,name=caption,proto3" json:"caption,omitempty"`
-	DedupKey      string                 `protobuf:"bytes,3,opt,name=dedup_key,json=dedupKey,proto3" json:"dedup_key,omitempty"`
+	ItemKey       string                 `protobuf:"bytes,3,opt,name=item_key,json=itemKey,proto3" json:"item_key,omitempty"` // mediaKey or dedupKey
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SetCaption) Reset() {
 	*x = SetCaption{}
-	mi := &file___proto_SetCaption_proto_msgTypes[0]
+	mi := &file_SetCaption_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -43,7 +43,7 @@ func (x *SetCaption) String() string {
 func (*SetCaption) ProtoMessage() {}
 
 func (x *SetCaption) ProtoReflect() protoreflect.Message {
-	mi := &file___proto_SetCaption_proto_msgTypes[0]
+	mi := &file_SetCaption_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -56,7 +56,7 @@ func (x *SetCaption) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetCaption.ProtoReflect.Descriptor instead.
 func (*SetCaption) Descriptor() ([]byte, []int) {
-	return file___proto_SetCaption_proto_rawDescGZIP(), []int{0}
+	return file_SetCaption_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *SetCaption) GetCaption() string {
@@ -66,40 +66,40 @@ func (x *SetCaption) GetCaption() string {
 	return ""
 }
 
-func (x *SetCaption) GetDedupKey() string {
+func (x *SetCaption) GetItemKey() string {
 	if x != nil {
-		return x.DedupKey
+		return x.ItemKey
 	}
 	return ""
 }
 
-var File___proto_SetCaption_proto protoreflect.FileDescriptor
+var File_SetCaption_proto protoreflect.FileDescriptor
 
-const file___proto_SetCaption_proto_rawDesc = "" +
+const file_SetCaption_proto_rawDesc = "" +
 	"\n" +
-	"\x17.proto/SetCaption.proto\"C\n" +
+	"\x10SetCaption.proto\"A\n" +
 	"\n" +
 	"SetCaption\x12\x18\n" +
-	"\acaption\x18\x02 \x01(\tR\acaption\x12\x1b\n" +
-	"\tdedup_key\x18\x03 \x01(\tR\bdedupKeyB\x05Z\x03/pbb\x06proto3"
+	"\acaption\x18\x02 \x01(\tR\acaption\x12\x19\n" +
+	"\bitem_key\x18\x03 \x01(\tR\aitemKeyB\x05Z\x03/pbb\x06proto3"
 
 var (
-	file___proto_SetCaption_proto_rawDescOnce sync.Once
-	file___proto_SetCaption_proto_rawDescData []byte
+	file_SetCaption_proto_rawDescOnce sync.Once
+	file_SetCaption_proto_rawDescData []byte
 )
 
-func file___proto_SetCaption_proto_rawDescGZIP() []byte {
-	file___proto_SetCaption_proto_rawDescOnce.Do(func() {
-		file___proto_SetCaption_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file___proto_SetCaption_proto_rawDesc), len(file___proto_SetCaption_proto_rawDesc)))
+func file_SetCaption_proto_rawDescGZIP() []byte {
+	file_SetCaption_proto_rawDescOnce.Do(func() {
+		file_SetCaption_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_SetCaption_proto_rawDesc), len(file_SetCaption_proto_rawDesc)))
 	})
-	return file___proto_SetCaption_proto_rawDescData
+	return file_SetCaption_proto_rawDescData
 }
 
-var file___proto_SetCaption_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file___proto_SetCaption_proto_goTypes = []any{
+var file_SetCaption_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_SetCaption_proto_goTypes = []any{
 	(*SetCaption)(nil), // 0: SetCaption
 }
-var file___proto_SetCaption_proto_depIdxs = []int32{
+var file_SetCaption_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -107,26 +107,26 @@ var file___proto_SetCaption_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file___proto_SetCaption_proto_init() }
-func file___proto_SetCaption_proto_init() {
-	if File___proto_SetCaption_proto != nil {
+func init() { file_SetCaption_proto_init() }
+func file_SetCaption_proto_init() {
+	if File_SetCaption_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file___proto_SetCaption_proto_rawDesc), len(file___proto_SetCaption_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_SetCaption_proto_rawDesc), len(file_SetCaption_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file___proto_SetCaption_proto_goTypes,
-		DependencyIndexes: file___proto_SetCaption_proto_depIdxs,
-		MessageInfos:      file___proto_SetCaption_proto_msgTypes,
+		GoTypes:           file_SetCaption_proto_goTypes,
+		DependencyIndexes: file_SetCaption_proto_depIdxs,
+		MessageInfos:      file_SetCaption_proto_msgTypes,
 	}.Build()
-	File___proto_SetCaption_proto = out.File
-	file___proto_SetCaption_proto_goTypes = nil
-	file___proto_SetCaption_proto_depIdxs = nil
+	File_SetCaption_proto = out.File
+	file_SetCaption_proto_goTypes = nil
+	file_SetCaption_proto_depIdxs = nil
 }

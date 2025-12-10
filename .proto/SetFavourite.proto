@@ -7,7 +7,7 @@ message SetFavourite {
   Field3 field3 = 3;
 
   message Field1 {
-    string dedup_key = 2;
+    string item_key = 2; // mediaKey or dedupKey
   }
 
   message Field2 {

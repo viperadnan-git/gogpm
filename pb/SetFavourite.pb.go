@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v3.12.4
-// source: .proto/SetFavourite.proto
+// source: SetFavourite.proto
 
 package pb
 
@@ -32,7 +32,7 @@ type SetFavourite struct {
 
 func (x *SetFavourite) Reset() {
 	*x = SetFavourite{}
-	mi := &file___proto_SetFavourite_proto_msgTypes[0]
+	mi := &file_SetFavourite_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +44,7 @@ func (x *SetFavourite) String() string {
 func (*SetFavourite) ProtoMessage() {}
 
 func (x *SetFavourite) ProtoReflect() protoreflect.Message {
-	mi := &file___proto_SetFavourite_proto_msgTypes[0]
+	mi := &file_SetFavourite_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +57,7 @@ func (x *SetFavourite) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetFavourite.ProtoReflect.Descriptor instead.
 func (*SetFavourite) Descriptor() ([]byte, []int) {
-	return file___proto_SetFavourite_proto_rawDescGZIP(), []int{0}
+	return file_SetFavourite_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *SetFavourite) GetField1() *SetFavourite_Field1 {
@@ -83,14 +83,14 @@ func (x *SetFavourite) GetField3() *SetFavourite_Field3 {
 
 type SetFavourite_Field1 struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	DedupKey      string                 `protobuf:"bytes,2,opt,name=dedup_key,json=dedupKey,proto3" json:"dedup_key,omitempty"`
+	ItemKey       string                 `protobuf:"bytes,2,opt,name=item_key,json=itemKey,proto3" json:"item_key,omitempty"` // mediaKey or dedupKey
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SetFavourite_Field1) Reset() {
 	*x = SetFavourite_Field1{}
-	mi := &file___proto_SetFavourite_proto_msgTypes[1]
+	mi := &file_SetFavourite_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -102,7 +102,7 @@ func (x *SetFavourite_Field1) String() string {
 func (*SetFavourite_Field1) ProtoMessage() {}
 
 func (x *SetFavourite_Field1) ProtoReflect() protoreflect.Message {
-	mi := &file___proto_SetFavourite_proto_msgTypes[1]
+	mi := &file_SetFavourite_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -115,12 +115,12 @@ func (x *SetFavourite_Field1) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetFavourite_Field1.ProtoReflect.Descriptor instead.
 func (*SetFavourite_Field1) Descriptor() ([]byte, []int) {
-	return file___proto_SetFavourite_proto_rawDescGZIP(), []int{0, 0}
+	return file_SetFavourite_proto_rawDescGZIP(), []int{0, 0}
 }
 
-func (x *SetFavourite_Field1) GetDedupKey() string {
+func (x *SetFavourite_Field1) GetItemKey() string {
 	if x != nil {
-		return x.DedupKey
+		return x.ItemKey
 	}
 	return ""
 }
@@ -134,7 +134,7 @@ type SetFavourite_Field2 struct {
 
 func (x *SetFavourite_Field2) Reset() {
 	*x = SetFavourite_Field2{}
-	mi := &file___proto_SetFavourite_proto_msgTypes[2]
+	mi := &file_SetFavourite_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -146,7 +146,7 @@ func (x *SetFavourite_Field2) String() string {
 func (*SetFavourite_Field2) ProtoMessage() {}
 
 func (x *SetFavourite_Field2) ProtoReflect() protoreflect.Message {
-	mi := &file___proto_SetFavourite_proto_msgTypes[2]
+	mi := &file_SetFavourite_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -159,7 +159,7 @@ func (x *SetFavourite_Field2) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetFavourite_Field2.ProtoReflect.Descriptor instead.
 func (*SetFavourite_Field2) Descriptor() ([]byte, []int) {
-	return file___proto_SetFavourite_proto_rawDescGZIP(), []int{0, 1}
+	return file_SetFavourite_proto_rawDescGZIP(), []int{0, 1}
 }
 
 func (x *SetFavourite_Field2) GetAction() int64 {
@@ -178,7 +178,7 @@ type SetFavourite_Field3 struct {
 
 func (x *SetFavourite_Field3) Reset() {
 	*x = SetFavourite_Field3{}
-	mi := &file___proto_SetFavourite_proto_msgTypes[3]
+	mi := &file_SetFavourite_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -190,7 +190,7 @@ func (x *SetFavourite_Field3) String() string {
 func (*SetFavourite_Field3) ProtoMessage() {}
 
 func (x *SetFavourite_Field3) ProtoReflect() protoreflect.Message {
-	mi := &file___proto_SetFavourite_proto_msgTypes[3]
+	mi := &file_SetFavourite_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -203,7 +203,7 @@ func (x *SetFavourite_Field3) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetFavourite_Field3.ProtoReflect.Descriptor instead.
 func (*SetFavourite_Field3) Descriptor() ([]byte, []int) {
-	return file___proto_SetFavourite_proto_rawDescGZIP(), []int{0, 2}
+	return file_SetFavourite_proto_rawDescGZIP(), []int{0, 2}
 }
 
 func (x *SetFavourite_Field3) GetField1() *SetFavourite_Field3_Field1Inner {
@@ -222,7 +222,7 @@ type SetFavourite_Field3_Field1Inner struct {
 
 func (x *SetFavourite_Field3_Field1Inner) Reset() {
 	*x = SetFavourite_Field3_Field1Inner{}
-	mi := &file___proto_SetFavourite_proto_msgTypes[4]
+	mi := &file_SetFavourite_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -234,7 +234,7 @@ func (x *SetFavourite_Field3_Field1Inner) String() string {
 func (*SetFavourite_Field3_Field1Inner) ProtoMessage() {}
 
 func (x *SetFavourite_Field3_Field1Inner) ProtoReflect() protoreflect.Message {
-	mi := &file___proto_SetFavourite_proto_msgTypes[4]
+	mi := &file_SetFavourite_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -247,7 +247,7 @@ func (x *SetFavourite_Field3_Field1Inner) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetFavourite_Field3_Field1Inner.ProtoReflect.Descriptor instead.
 func (*SetFavourite_Field3_Field1Inner) Descriptor() ([]byte, []int) {
-	return file___proto_SetFavourite_proto_rawDescGZIP(), []int{0, 2, 0}
+	return file_SetFavourite_proto_rawDescGZIP(), []int{0, 2, 0}
 }
 
 func (x *SetFavourite_Field3_Field1Inner) GetField19() *SetFavourite_Field3_Field1Inner_Field19 {
@@ -265,7 +265,7 @@ type SetFavourite_Field3_Field1Inner_Field19 struct {
 
 func (x *SetFavourite_Field3_Field1Inner_Field19) Reset() {
 	*x = SetFavourite_Field3_Field1Inner_Field19{}
-	mi := &file___proto_SetFavourite_proto_msgTypes[5]
+	mi := &file_SetFavourite_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -277,7 +277,7 @@ func (x *SetFavourite_Field3_Field1Inner_Field19) String() string {
 func (*SetFavourite_Field3_Field1Inner_Field19) ProtoMessage() {}
 
 func (x *SetFavourite_Field3_Field1Inner_Field19) ProtoReflect() protoreflect.Message {
-	mi := &file___proto_SetFavourite_proto_msgTypes[5]
+	mi := &file_SetFavourite_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -290,20 +290,20 @@ func (x *SetFavourite_Field3_Field1Inner_Field19) ProtoReflect() protoreflect.Me
 
 // Deprecated: Use SetFavourite_Field3_Field1Inner_Field19.ProtoReflect.Descriptor instead.
 func (*SetFavourite_Field3_Field1Inner_Field19) Descriptor() ([]byte, []int) {
-	return file___proto_SetFavourite_proto_rawDescGZIP(), []int{0, 2, 0, 0}
+	return file_SetFavourite_proto_rawDescGZIP(), []int{0, 2, 0, 0}
 }
 
-var File___proto_SetFavourite_proto protoreflect.FileDescriptor
+var File_SetFavourite_proto protoreflect.FileDescriptor
 
-const file___proto_SetFavourite_proto_rawDesc = "" +
+const file_SetFavourite_proto_rawDesc = "" +
 	"\n" +
-	"\x19.proto/SetFavourite.proto\"\x84\x03\n" +
+	"\x12SetFavourite.proto\"\x82\x03\n" +
 	"\fSetFavourite\x12,\n" +
 	"\x06field1\x18\x01 \x01(\v2\x14.SetFavourite.Field1R\x06field1\x12,\n" +
 	"\x06field2\x18\x02 \x01(\v2\x14.SetFavourite.Field2R\x06field2\x12,\n" +
-	"\x06field3\x18\x03 \x01(\v2\x14.SetFavourite.Field3R\x06field3\x1a%\n" +
-	"\x06Field1\x12\x1b\n" +
-	"\tdedup_key\x18\x02 \x01(\tR\bdedupKey\x1a \n" +
+	"\x06field3\x18\x03 \x01(\v2\x14.SetFavourite.Field3R\x06field3\x1a#\n" +
+	"\x06Field1\x12\x19\n" +
+	"\bitem_key\x18\x02 \x01(\tR\aitemKey\x1a \n" +
 	"\x06Field2\x12\x16\n" +
 	"\x06action\x18\x01 \x01(\x03R\x06action\x1a\xa0\x01\n" +
 	"\x06Field3\x128\n" +
@@ -313,19 +313,19 @@ const file___proto_SetFavourite_proto_rawDesc = "" +
 	"\aField19B\x05Z\x03/pbb\x06proto3"
 
 var (
-	file___proto_SetFavourite_proto_rawDescOnce sync.Once
-	file___proto_SetFavourite_proto_rawDescData []byte
+	file_SetFavourite_proto_rawDescOnce sync.Once
+	file_SetFavourite_proto_rawDescData []byte
 )
 
-func file___proto_SetFavourite_proto_rawDescGZIP() []byte {
-	file___proto_SetFavourite_proto_rawDescOnce.Do(func() {
-		file___proto_SetFavourite_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file___proto_SetFavourite_proto_rawDesc), len(file___proto_SetFavourite_proto_rawDesc)))
+func file_SetFavourite_proto_rawDescGZIP() []byte {
+	file_SetFavourite_proto_rawDescOnce.Do(func() {
+		file_SetFavourite_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_SetFavourite_proto_rawDesc), len(file_SetFavourite_proto_rawDesc)))
 	})
-	return file___proto_SetFavourite_proto_rawDescData
+	return file_SetFavourite_proto_rawDescData
 }
 
-var file___proto_SetFavourite_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file___proto_SetFavourite_proto_goTypes = []any{
+var file_SetFavourite_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_SetFavourite_proto_goTypes = []any{
 	(*SetFavourite)(nil),                            // 0: SetFavourite
 	(*SetFavourite_Field1)(nil),                     // 1: SetFavourite.Field1
 	(*SetFavourite_Field2)(nil),                     // 2: SetFavourite.Field2
@@ -333,7 +333,7 @@ var file___proto_SetFavourite_proto_goTypes = []any{
 	(*SetFavourite_Field3_Field1Inner)(nil),         // 4: SetFavourite.Field3.Field1Inner
 	(*SetFavourite_Field3_Field1Inner_Field19)(nil), // 5: SetFavourite.Field3.Field1Inner.Field19
 }
-var file___proto_SetFavourite_proto_depIdxs = []int32{
+var file_SetFavourite_proto_depIdxs = []int32{
 	1, // 0: SetFavourite.field1:type_name -> SetFavourite.Field1
 	2, // 1: SetFavourite.field2:type_name -> SetFavourite.Field2
 	3, // 2: SetFavourite.field3:type_name -> SetFavourite.Field3
@@ -346,26 +346,26 @@ var file___proto_SetFavourite_proto_depIdxs = []int32{
 	0, // [0:5] is the sub-list for field type_name
 }
 
-func init() { file___proto_SetFavourite_proto_init() }
-func file___proto_SetFavourite_proto_init() {
-	if File___proto_SetFavourite_proto != nil {
+func init() { file_SetFavourite_proto_init() }
+func file_SetFavourite_proto_init() {
+	if File_SetFavourite_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file___proto_SetFavourite_proto_rawDesc), len(file___proto_SetFavourite_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_SetFavourite_proto_rawDesc), len(file_SetFavourite_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file___proto_SetFavourite_proto_goTypes,
-		DependencyIndexes: file___proto_SetFavourite_proto_depIdxs,
-		MessageInfos:      file___proto_SetFavourite_proto_msgTypes,
+		GoTypes:           file_SetFavourite_proto_goTypes,
+		DependencyIndexes: file_SetFavourite_proto_depIdxs,
+		MessageInfos:      file_SetFavourite_proto_msgTypes,
 	}.Build()
-	File___proto_SetFavourite_proto = out.File
-	file___proto_SetFavourite_proto_goTypes = nil
-	file___proto_SetFavourite_proto_depIdxs = nil
+	File_SetFavourite_proto = out.File
+	file_SetFavourite_proto_goTypes = nil
+	file_SetFavourite_proto_depIdxs = nil
 }

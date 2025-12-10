@@ -3,5 +3,5 @@ option go_package = "/pb";
 
 message SetCaption {
   string caption = 2;
-  string dedup_key = 3;
+  string item_key = 3; // mediaKey or dedupKey
 }

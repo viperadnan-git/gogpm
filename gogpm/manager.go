@@ -398,7 +398,7 @@ func startUploadWorker(workerID int, workChan <-chan string, results chan<- File
 				})
 			} else {
 				// Execute post-upload operations immediately after each successful upload
-				postUploadOps(apiClient, result.DedupKey, path, workerID, opts, callback)
+				postUploadOps(apiClient, result.MediaKey, path, workerID, opts, callback)
 
 				results <- FileUploadResult{IsError: false, IsExisting: result.IsExisting, Path: path, MediaKey: result.MediaKey, DedupKey: result.DedupKey}
 				callback("ThreadStatus", ThreadStatus{
@@ -429,7 +429,7 @@ func startUploadWorker(workerID int, workChan <-chan string, results chan<- File
 }
 
 // postUploadOps executes caption, favourite, and archive operations immediately after upload
-func postUploadOps(apiClient *core.Api, dedupKey, filePath string, workerID int, opts UploadOptions, callback ProgressCallback) {
+func postUploadOps(apiClient *core.Api, mediaKey, filePath string, workerID int, opts UploadOptions, callback ProgressCallback) {
 	fileName := filepath.Base(filePath)
 
 	// Set caption if configured
@@ -441,7 +441,7 @@ func postUploadOps(apiClient *core.Api, dedupKey, filePath string, workerID int,
 			FileName: fileName,
 			Message:  "Setting caption...",
 		})
-		if err := apiClient.SetCaption(dedupKey, opts.Caption); err != nil {
+		if err := apiClient.SetCaption(mediaKey, opts.Caption); err != nil {
 			slog.Error("failed to set caption", "path", filePath, "error", err)
 		}
 	}
@@ -455,7 +455,7 @@ func postUploadOps(apiClient *core.Api, dedupKey, filePath string, workerID int,
 			FileName: fileName,
 			Message:  "Setting favourite...",
 		})
-		if err := apiClient.SetFavourite(dedupKey, true); err != nil {
+		if err := apiClient.SetFavourite(mediaKey, true); err != nil {
 			slog.Error("failed to set favourite", "path", filePath, "error", err)
 		}
 	}
@@ -469,7 +469,7 @@ func postUploadOps(apiClient *core.Api, dedupKey, filePath string, workerID int,
 			FileName: fileName,
 			Message:  "Archiving...",
 		})
-		if err := apiClient.SetArchived([]string{dedupKey}, true); err != nil {
+		if err := apiClient.SetArchived([]string{mediaKey}, true); err != nil {
 			slog.Error("failed to archive", "path", filePath, "error", err)
 		}
 	}

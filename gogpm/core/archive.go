@@ -12,19 +12,19 @@ import (
 )
 
 // SetArchived sets or removes the archived status for multiple items
-// dedupKeys are URL-safe base64 encoded SHA1 hashes of the files
+// itemKeys can be either mediaKeys or dedupKeys (URL-safe base64 encoded SHA1 hashes)
 // isArchived: true = archive, false = unarchive
-func (a *Api) SetArchived(dedupKeys []string, isArchived bool) error {
+func (a *Api) SetArchived(itemKeys []string, isArchived bool) error {
 	// Action map: true (archive) = 1, false (unarchive) = 2
 	var action int64 = 2
 	if isArchived {
 		action = 1
 	}
 
-	items := make([]*pb.SetArchived_ArchivedItem, len(dedupKeys))
-	for i, key := range dedupKeys {
+	items := make([]*pb.SetArchived_ArchivedItem, len(itemKeys))
+	for i, key := range itemKeys {
 		items[i] = &pb.SetArchived_ArchivedItem{
-			DedupKey: key,
+			ItemKey: key,
 			Action: &pb.SetArchived_ArchiveAction{
 				Action: action,
 			},

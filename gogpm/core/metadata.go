@@ -12,10 +12,11 @@ import (
 )
 
 // SetCaption sets the caption for a media item
-func (a *Api) SetCaption(dedupKey, caption string) error {
+// itemKey can be either mediaKey or dedupKey
+func (a *Api) SetCaption(itemKey, caption string) error {
 	requestBody := pb.SetCaption{
-		Caption:  caption,
-		DedupKey: dedupKey,
+		Caption: caption,
+		ItemKey: itemKey,
 	}
 
 	serializedData, err := proto.Marshal(&requestBody)
@@ -58,9 +59,9 @@ func (a *Api) SetCaption(dedupKey, caption string) error {
 }
 
 // SetFavourite sets or removes the favourite status for a media item
-// dedupKey is the URL-safe base64 encoded SHA1 hash of the file
+// itemKey can be either mediaKey or dedupKey
 // isFavourite: true = favourite, false = unfavourite
-func (a *Api) SetFavourite(dedupKey string, isFavourite bool) error {
+func (a *Api) SetFavourite(itemKey string, isFavourite bool) error {
 	// Action map: true (favourite) = 1, false (unfavourite) = 2
 	var action int64 = 2
 	if isFavourite {
@@ -69,7 +70,7 @@ func (a *Api) SetFavourite(dedupKey string, isFavourite bool) error {
 
 	requestBody := pb.SetFavourite{
 		Field1: &pb.SetFavourite_Field1{
-			DedupKey: dedupKey,
+			ItemKey: itemKey,
 		},
 		Field2: &pb.SetFavourite_Field2{
 			Action: action,
