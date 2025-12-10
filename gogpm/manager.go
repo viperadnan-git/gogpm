@@ -140,7 +140,7 @@ func (g *GooglePhotosAPI) Upload(paths []string, opts UploadOptions, callback Pr
 			if result.IsError {
 				slog.Error("upload error", "error", result.Error)
 			} else {
-				slog.Info("upload success", "path", result.Path)
+				slog.Info("upload success", "path", result.Path, "media_key", result.MediaKey, "existing", result.IsExisting)
 			}
 		}
 		// Only emit uploadStop after all results have been processed
