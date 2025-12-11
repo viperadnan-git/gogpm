@@ -194,7 +194,7 @@ func (m *ConfigManager) SetUploadThreads(uploadThreads int) {
 }
 
 // AddCredentials adds a new credential to the config
-func (m *ConfigManager) AddCredentials(newAuthString string) error {
+func (m *ConfigManager) AddCredentials(newAuthString string) (email string, err error) {
 	// Required fields that must be present in the auth string
 	requiredFields := []string{
 		"androidId",
@@ -209,7 +209,7 @@ func (m *ConfigManager) AddCredentials(newAuthString string) error {
 	// Parse the auth string
 	params, err := url.ParseQuery(newAuthString)
 	if err != nil {
-		return fmt.Errorf("invalid auth string format: %v", err)
+		return "", fmt.Errorf("invalid auth string format: %v", err)
 	}
 
 	// Validate required fields
@@ -220,13 +220,13 @@ func (m *ConfigManager) AddCredentials(newAuthString string) error {
 		}
 	}
 	if len(missingFields) > 0 {
-		return fmt.Errorf("auth string missing required fields: %v", missingFields)
+		return "", fmt.Errorf("auth string missing required fields: %v", missingFields)
 	}
 
 	// Get and validate email
-	email := params.Get("Email")
+	email = params.Get("Email")
 	if email == "" {
-		return fmt.Errorf("email cannot be empty")
+		return "", fmt.Errorf("email cannot be empty")
 	}
 
 	// Check for duplicate email in existing credentials
@@ -236,7 +236,7 @@ func (m *ConfigManager) AddCredentials(newAuthString string) error {
 			continue // skip malformed entries
 		}
 		if existingParams.Get("Email") == email {
-			return fmt.Errorf("auth string with email %s already exists", email)
+			return "", fmt.Errorf("auth string with email %s already exists", email)
 		}
 	}
 
@@ -244,7 +244,7 @@ func (m *ConfigManager) AddCredentials(newAuthString string) error {
 	m.config.Credentials = append(m.config.Credentials, newAuthString)
 	m.config.Selected = email
 	m.Save()
-	return nil
+	return email, nil
 }
 
 // RemoveCredentials removes a credential by email

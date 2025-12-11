@@ -68,11 +68,12 @@ func credentialsAddAction(ctx context.Context, cmd *cli.Command) error {
 
 	authString := strings.TrimSpace(cmd.StringArg("auth-string"))
 
-	if err := cfgManager.AddCredentials(authString); err != nil {
+	email, err := cfgManager.AddCredentials(authString)
+	if err != nil {
 		return fmt.Errorf("invalid credentials: %w", err)
 	}
 
-	slog.Info("authentication added successfully")
+	slog.Info("authentication added successfully", "email", email)
 	return nil
 }
 
