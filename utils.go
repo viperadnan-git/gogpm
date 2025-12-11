@@ -8,10 +8,14 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/viperadnan-git/gogpm/internal/core"
 )
+
+// dedupKeyPattern matches dedup keys (URL-safe base64 encoded SHA1)
+var dedupKeyPattern = regexp.MustCompile(`^[A-Za-z0-9_-]{27}$`)
 
 // DownloadFromReader saves data from an io.Reader to the specified output path
 // Returns the final output path
@@ -129,9 +133,14 @@ func writeToFile(filePath string, reader io.Reader) error {
 // If input is a file path (file exists on disk), calculates SHA1 and converts to dedup key
 // Otherwise returns input as-is (assumed to be mediaKey or dedupKey)
 // Use this for APIs that accept both mediaKey and dedupKey (delete, archive, favourite, caption)
-func ResolveItemKey(ctx context.Context, input string) (string, error) {
+func (g *GooglePhotosAPI) ResolveItemKey(ctx context.Context, input string) (string, error) {
 	if input == "" {
 		return "", fmt.Errorf("item key or file path is required")
+	}
+
+	// If input looks like a dedup key
+	if dedupKeyPattern.MatchString(input) {
+		return input, nil
 	}
 
 	// Check if input is a file path by trying to stat it
@@ -148,12 +157,29 @@ func ResolveItemKey(ctx context.Context, input string) (string, error) {
 }
 
 // ResolveMediaKey resolves input to a mediaKey
+// If input is a dedup key, converts to SHA1 and looks up mediaKey via API
 // If input is a file path, calculates SHA1 and looks up mediaKey via API
 // Otherwise returns input as-is (assumed to be mediaKey)
 // Use this for APIs that require mediaKey (thumbnail, download)
-func ResolveMediaKey(ctx context.Context, apiClient *core.Api, input string) (string, error) {
+func (g *GooglePhotosAPI) ResolveMediaKey(ctx context.Context, input string) (string, error) {
 	if input == "" {
 		return "", fmt.Errorf("item key or file path is required")
+	}
+
+	// If input looks like a dedup key, convert to hash and look up mediaKey
+	if dedupKeyPattern.MatchString(input) {
+		hash, err := core.DedupeKeyToSHA1(input)
+		if err != nil {
+			return "", fmt.Errorf("failed to decode dedup key: %w", err)
+		}
+		mediaKey, err := g.FindRemoteMediaByHash(hash)
+		if err != nil {
+			return "", fmt.Errorf("failed to find media in library: %w", err)
+		}
+		if mediaKey == "" {
+			return "", fmt.Errorf("media not found in Google Photos library")
+		}
+		return mediaKey, nil
 	}
 
 	// Check if input is a file path by trying to stat it
@@ -163,7 +189,7 @@ func ResolveMediaKey(ctx context.Context, apiClient *core.Api, input string) (st
 		if err != nil {
 			return "", fmt.Errorf("failed to calculate SHA1: %w", err)
 		}
-		mediaKey, err := apiClient.FindRemoteMediaByHash(hash)
+		mediaKey, err := g.FindRemoteMediaByHash(hash)
 		if err != nil {
 			return "", fmt.Errorf("failed to find media in library: %w", err)
 		}

@@ -49,7 +49,7 @@ gogpm/
 │   │   └── ...
 │   └── pb/              # Protobuf-generated Go code (internal)
 ├── .proto/              # Protobuf definitions
-├── api.go               # Public API: GooglePhotosAPI struct
+├── gogpm.go             # Public API: GooglePhotosAPI struct
 ├── manager.go           # Upload orchestration with worker pool
 ├── sha1.go              # File hash calculation
 ├── utils.go             # Download utilities, key resolution

@@ -18,11 +18,6 @@ func deleteAction(ctx context.Context, cmd *cli.Command) error {
 	input := cmd.StringArg("input")
 	restore := cmd.Bool("restore")
 
-	itemKey, err := gogpm.ResolveItemKey(ctx, input)
-	if err != nil {
-		return err
-	}
-
 	authData := getAuthData(cfg)
 	if authData == "" {
 		return fmt.Errorf("no authentication configured. Use 'gpcli auth add' to add credentials")
@@ -34,6 +29,11 @@ func deleteAction(ctx context.Context, cmd *cli.Command) error {
 	})
 	if err != nil {
 		return fmt.Errorf("failed to create API client: %w", err)
+	}
+
+	itemKey, err := apiClient.ResolveItemKey(ctx, input)
+	if err != nil {
+		return err
 	}
 
 	if restore {
@@ -60,11 +60,6 @@ func archiveAction(ctx context.Context, cmd *cli.Command) error {
 	input := cmd.StringArg("input")
 	unarchive := cmd.Bool("unarchive")
 
-	itemKey, err := gogpm.ResolveItemKey(ctx, input)
-	if err != nil {
-		return err
-	}
-
 	authData := getAuthData(cfg)
 	if authData == "" {
 		return fmt.Errorf("no authentication configured. Use 'gpcli auth add' to add credentials")
@@ -76,6 +71,11 @@ func archiveAction(ctx context.Context, cmd *cli.Command) error {
 	})
 	if err != nil {
 		return fmt.Errorf("failed to create API client: %w", err)
+	}
+
+	itemKey, err := apiClient.ResolveItemKey(ctx, input)
+	if err != nil {
+		return err
 	}
 
 	isArchived := !unarchive
@@ -101,11 +101,6 @@ func favouriteAction(ctx context.Context, cmd *cli.Command) error {
 	input := cmd.StringArg("input")
 	remove := cmd.Bool("remove")
 
-	itemKey, err := gogpm.ResolveItemKey(ctx, input)
-	if err != nil {
-		return err
-	}
-
 	authData := getAuthData(cfg)
 	if authData == "" {
 		return fmt.Errorf("no authentication configured. Use 'gpcli auth add' to add credentials")
@@ -117,6 +112,11 @@ func favouriteAction(ctx context.Context, cmd *cli.Command) error {
 	})
 	if err != nil {
 		return fmt.Errorf("failed to create API client: %w", err)
+	}
+
+	itemKey, err := apiClient.ResolveItemKey(ctx, input)
+	if err != nil {
+		return err
 	}
 
 	isFavourite := !remove
@@ -142,11 +142,6 @@ func captionAction(ctx context.Context, cmd *cli.Command) error {
 	input := cmd.StringArg("input")
 	caption := cmd.StringArg("caption")
 
-	itemKey, err := gogpm.ResolveItemKey(ctx, input)
-	if err != nil {
-		return err
-	}
-
 	authData := getAuthData(cfg)
 	if authData == "" {
 		return fmt.Errorf("no authentication configured. Use 'gpcli auth add' to add credentials")
@@ -158,6 +153,11 @@ func captionAction(ctx context.Context, cmd *cli.Command) error {
 	})
 	if err != nil {
 		return fmt.Errorf("failed to create API client: %w", err)
+	}
+
+	itemKey, err := apiClient.ResolveItemKey(ctx, input)
+	if err != nil {
+		return err
 	}
 
 	logger.Info("setting caption", "item_key", itemKey, "caption", caption)

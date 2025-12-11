@@ -105,17 +105,15 @@ func main() {
 					},
 					&cli.BoolFlag{
 						Name:    "disable-filter",
-						Aliases: []string{"df"},
 						Usage:   "Disable file type filtering",
 					},
 					&cli.StringFlag{
 						Name:    "album",
-						Aliases: []string{"a"},
 						Usage:   "Add uploaded files to album with this name (creates if not exists)",
 					},
 					&cli.StringFlag{
 						Name:    "quality",
-						Aliases: []string{"Q"},
+						Aliases: []string{"q"},
 						Value:   "original",
 						Usage:   "Upload quality: 'original' or 'storage-saver'",
 					},
@@ -125,6 +123,7 @@ func main() {
 					},
 					&cli.BoolFlag{
 						Name:  "archive",
+						Aliases: []string{"a"},
 						Usage: "Archive uploaded files after upload",
 					},
 					&cli.StringFlag{

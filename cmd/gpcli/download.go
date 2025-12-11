@@ -32,7 +32,7 @@ func downloadAction(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("failed to create API client: %w", err)
 	}
 
-	mediaKey, err := gogpm.ResolveMediaKey(ctx, apiClient.Api, input)
+	mediaKey, err := apiClient.ResolveMediaKey(ctx, input)
 	if err != nil {
 		return err
 	}
@@ -92,7 +92,7 @@ func thumbnailAction(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("failed to create API client: %w", err)
 	}
 
-	mediaKey, err := gogpm.ResolveMediaKey(ctx, apiClient.Api, input)
+	mediaKey, err := apiClient.ResolveMediaKey(ctx, input)
 	if err != nil {
 		return err
 	}
