@@ -2,12 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Rules
+
+- Always implement root fixes and never add patch fixes
+- Update this doc if any reference is changed
+- Write minimal lines of code
+
 ## Build Commands
 
 ```bash
-make build      # Build to ./gpcli
+make build      # Build to ./cmd/gpcli/gpcli
 make clean      # Remove built binary
-cd cmd/gpcli && go build -o ../../gpcli .   # Direct build command
+cd cmd/gpcli && go build -o ../../gpcli .   # Direct build command (not recommended)
 ```
 
 ## Protobuf Generation
@@ -31,32 +37,6 @@ done
 
 This is a monorepo containing both a CLI tool and a Go library for managing Google Photos using an unofficial API. It uses protobuf for API communication.
 
-### Project Structure
-
-```
-go-gpm/
-├── cmd/
-│   └── gpcli/           # CLI application (separate module)
-│       ├── go.mod       # module github.com/viperadnan-git/go-gpm/cmd/gpcli
-│       ├── main.go      # Entry point + command definitions
-│       ├── config.go    # YAML config file management
-│       └── ...
-├── internal/
-│   ├── core/            # Low-level API operations (internal)
-│   │   ├── api.go       # Api struct with auth token management
-│   │   ├── upload.go    # Upload token, file upload, commit
-│   │   ├── download.go  # Download URL retrieval
-│   │   └── ...
-│   └── pb/              # Protobuf-generated Go code (internal)
-├── .proto/              # Protobuf definitions
-├── gpm.go               # Public API: GooglePhotosAPI struct
-├── uploader.go          # Upload orchestration with worker pool
-├── sha1.go              # File hash calculation
-├── utils.go             # Download utilities, key resolution
-├── version.go           # Version constant
-└── go.mod               # module github.com/viperadnan-git/go-gpm (library only)
-```
-
 ### Module Structure
 
 The project uses two Go modules to separate library and CLI dependencies:
@@ -72,7 +52,7 @@ replace github.com/viperadnan-git/go-gpm => ../..
 ### Key Components
 
 - **Root package (gpm)** - Public library API
-  - `api.go` - GooglePhotosAPI struct embedding internal/core.Api
+  - `main.go` - GooglePhotosAPI struct embedding internal/core.Api
   - `uploader.go` - Upload orchestration with worker pool. Emits progress events.
   - `utils.go` - Download utilities, ResolveItemKey, ResolveMediaKey
   - `sha1.go` - File hash calculation
@@ -93,23 +73,6 @@ replace github.com/viperadnan-git/go-gpm => ../..
 - **internal/pb/** - Protobuf-generated Go code for API request/response structures (not exported)
 - **.proto/** - Protobuf definitions for Google Photos API messages
 
-### Library Usage
-
-```go
-import "github.com/viperadnan-git/go-gpm"
-
-// Create API client
-api, err := gpm.NewGooglePhotosAPI(gpm.ApiConfig{
-    AuthData: authString,
-})
-
-// Upload files
-api.Upload(paths, opts, callback)
-
-// Download files
-gpm.DownloadFile(url, outputPath)
-```
-
 ### Event-Based Progress System
 
 The upload system uses an event callback pattern:
@@ -122,7 +85,3 @@ Event types: `uploadStart`, `ThreadStatus`, `FileStatus`, `uploadStop`
 ### Config File
 
 Config is stored in `./gpcli.config` (YAML) or custom path via `--config` flag. Contains credentials array and upload settings.
-
-## Rules
-
-- always implement root fixes and never add patch fixes

@@ -316,6 +316,43 @@ func main() {
 				Action: captionAction,
 			},
 			{
+				Name:  "album",
+				Usage: "Manage albums",
+				Commands: []*cli.Command{
+					{
+						Name:      "create",
+						Usage:     "Create a new album with media items",
+						UsageText: "gpcli album create <name> <media-key> [media-key...]",
+						Arguments: []cli.Argument{
+							&cli.StringArg{
+								Name:      "name",
+								UsageText: "Album name",
+							},
+						},
+						Action: albumCreateAction,
+					},
+					{
+						Name:      "add",
+						Usage:     "Add media items to an existing album",
+						UsageText: "gpcli album add <album-key> <media-key> [media-key...] [--from-file FILE]",
+						Arguments: []cli.Argument{
+							&cli.StringArg{
+								Name:      "album-key",
+								UsageText: "Album media key",
+							},
+						},
+						Flags: []cli.Flag{
+							&cli.StringFlag{
+								Name:    "from-file",
+								Aliases: []string{"i"},
+								Usage:   "Read media keys from file (one per line)",
+							},
+						},
+						Action: albumAddAction,
+					},
+				},
+			},
+			{
 				Name:  "upgrade",
 				Usage: "Upgrade gpcli to latest or specific version",
 				Arguments: []cli.Argument{
