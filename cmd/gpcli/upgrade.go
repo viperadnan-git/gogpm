@@ -28,7 +28,7 @@ func upgradeAction(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("failed to create updater: %w", err)
 	}
 
-	repo := selfupdate.ParseSlug("viperadnan-git/gogpm")
+	repo := selfupdate.ParseSlug("viperadnan-git/go-gpm")
 
 	var release *selfupdate.Release
 	var found bool
